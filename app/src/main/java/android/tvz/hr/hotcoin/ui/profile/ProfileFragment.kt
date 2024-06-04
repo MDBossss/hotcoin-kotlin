@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import android.tvz.hr.hotcoin.databinding.FragmentProfileBinding
+import androidx.appcompat.app.AppCompatActivity
 
 class ProfileFragment : Fragment() {
 
@@ -22,18 +23,26 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val newsViewModel =
-            ViewModelProvider(this).get(ProfileViewModel::class.java)
+        val factory = ProfileViewModelFactory(requireContext())
+        val profileViewModel =
+            ViewModelProvider(this, factory).get(ProfileViewModel::class.java)
 
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textProfile
-        newsViewModel.text.observe(viewLifecycleOwner) {
+        profileViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        val logoutButton = binding.logoutButton
+        logoutButton.setOnClickListener{
+            profileViewModel.logout()
+        }
+
         return root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

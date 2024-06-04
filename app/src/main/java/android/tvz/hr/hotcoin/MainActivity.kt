@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
 
         if(isLoggedIn){
 
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
