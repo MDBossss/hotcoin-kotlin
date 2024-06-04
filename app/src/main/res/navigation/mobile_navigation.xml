@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_news"
-        android:name="android.tvz.hr.hotcoin.ui.home.HomeFragment"
+        android:name="android.tvz.hr.hotcoin.ui.news.NewsFragment"
         android:label="@string/title_news"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_news" />
 
     <fragment
         android:id="@+id/navigation_bookmarked"
-        android:name="android.tvz.hr.hotcoin.ui.dashboard.DashboardFragment"
+        android:name="android.tvz.hr.hotcoin.ui.bookmarked.BookmarkedFragment"
         android:label="@string/title_bookmarked"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_bookmarked" />
 
     <fragment
         android:id="@+id/navigation_charts"
-        android:name="android.tvz.hr.hotcoin.ui.notifications.NotificationsFragment"
+        android:name="android.tvz.hr.hotcoin.ui.charts.ChartsFragment"
         android:label="@string/title_charts"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_charts" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="android.tvz.hr.hotcoin.ui.notifications.NotificationsFragment"
+        android:name="android.tvz.hr.hotcoin.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_profile" />
 </navigation>
