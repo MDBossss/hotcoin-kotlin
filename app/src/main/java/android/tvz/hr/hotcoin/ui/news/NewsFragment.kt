@@ -12,6 +12,7 @@ import android.tvz.hr.hotcoin.model.NewsResponse
 import android.tvz.hr.hotcoin.util.Constants
 import android.tvz.hr.hotcoin.util.RetrofitHelper
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,6 +21,7 @@ class NewsFragment : Fragment() {
 
     private var _binding: FragmentNewsBinding? = null
     private lateinit var newsService: NewsService
+    private lateinit var newsAdapter: NewsAdapter
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -36,6 +38,12 @@ class NewsFragment : Fragment() {
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        binding.newsRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        // Initialize the adapter with empty list before calling the api
+        newsAdapter = NewsAdapter(emptyList())
+        binding.newsRecyclerView.adapter = newsAdapter
+
         newsService = RetrofitHelper().createService(NewsService::class.java,Constants.NEWS_API_URL)
 
         newsService.getNews(Constants.NEWS_QUERY,Constants.NEWS_API_KEY).enqueue(object : Callback<NewsResponse> {
@@ -44,6 +52,8 @@ class NewsFragment : Fragment() {
                     val newsResponse = response.body()
                     if(newsResponse != null){
                         val articles = newsResponse.articles
+                        newsAdapter = NewsAdapter(articles)
+                        binding.newsRecyclerView.adapter = newsAdapter
 
                     }
                 }else{
