@@ -23,6 +23,7 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // If something exists in the ViewModel constructor, there needs to be a Factory to override the create and take in that value
         val factory = ProfileViewModelFactory(requireContext())
         val profileViewModel =
             ViewModelProvider(this, factory).get(ProfileViewModel::class.java)
