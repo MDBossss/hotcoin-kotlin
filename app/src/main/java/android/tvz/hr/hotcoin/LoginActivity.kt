@@ -59,21 +59,5 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this@LoginActivity, "Network error", Toast.LENGTH_SHORT).show()
             }
         })
-
-//        // Replace with your actual login logic and data
-//        if (username == "test" && password == "test") {
-//            // Login successful, start MainActivity
-//            val sharedPreferences = getSharedPreferences("loginStatus", MODE_PRIVATE)
-//            val editor = sharedPreferences.edit()
-//            editor.putBoolean("isLoggedIn", true)
-//            editor.apply()
-//
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-//            finish() // Optional: Close LoginActivity after successful login
-//        } else {
-//            // Login failed, show error message
-//            Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show()
-//        }
     }
 }

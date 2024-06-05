@@ -1,17 +1,25 @@
 package android.tvz.hr.hotcoin.ui.news
 
 import android.os.Bundle
+import android.tvz.hr.hotcoin.api.NewsService
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import android.tvz.hr.hotcoin.databinding.FragmentNewsBinding
+import android.tvz.hr.hotcoin.model.NewsResponse
+import android.tvz.hr.hotcoin.util.Constants
+import android.tvz.hr.hotcoin.util.RetrofitHelper
+import android.widget.Toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class NewsFragment : Fragment() {
 
     private var _binding: FragmentNewsBinding? = null
+    private lateinit var newsService: NewsService
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -28,10 +36,27 @@ class NewsFragment : Fragment() {
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNews
-        newsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        newsService = RetrofitHelper().createService(NewsService::class.java,Constants.NEWS_API_URL)
+
+        newsService.getNews(Constants.NEWS_QUERY,Constants.NEWS_API_KEY).enqueue(object : Callback<NewsResponse> {
+            override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
+                if(response.isSuccessful){
+                    val newsResponse = response.body()
+                    if(newsResponse != null){
+                        val articles = newsResponse.articles
+
+                    }
+                }else{
+                    Toast.makeText(context, "Failed to get articles", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+                Toast.makeText(context, "Network error", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+
         return root
     }
 
