@@ -6,6 +6,6 @@ const loginController = new LoginController();
 
 router.use(express.json());
 
-router.post("/login", loginController.login);
+router.post("/", loginController.login);
 
 export default router;

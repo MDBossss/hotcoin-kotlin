@@ -4,7 +4,9 @@ class LoginController {
   async login(req: Request, res: Response) {
     console.log("[INFO] login()");
 
-    const { username, password } = req.body;
+    const body = req.body;
+
+    const { username, password } = body;
 
     if (username === "test" && password === "test") {
       res.status(200).json({ message: "Login successful" });
