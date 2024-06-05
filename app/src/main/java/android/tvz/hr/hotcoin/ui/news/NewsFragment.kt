@@ -34,9 +34,8 @@ class NewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         newsService = RetrofitHelper().createService(NewsService::class.java,Constants.NEWS_API_URL)
-        val factory = NewsViewModelFactory(newsService)
         val newsViewModel =
-            ViewModelProvider(this,factory).get(NewsViewModel::class.java)
+            ViewModelProvider(this,NewsViewModelFactory(newsService)).get(NewsViewModel::class.java)
 
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
         val root: View = binding.root
