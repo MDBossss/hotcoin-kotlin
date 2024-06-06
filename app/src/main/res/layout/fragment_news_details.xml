@@ -10,12 +10,27 @@
     >
 
     <TextView
+        android:id="@+id/news_source_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        android:textColor="#fff"
+        />
+
+    <TextView
         android:id="@+id/news_title_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_marginBottom="8dp" />
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        />
+
+    <TextView
+        android:id="@+id/news_author_publishedAt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
     <ImageView
         android:id="@+id/news_image_view"
@@ -24,8 +39,30 @@
         android:scaleType="fitCenter"
         android:layout_marginBottom="8dp" />
 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bookmark_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="4dp"
+            android:text="@string/bookmark" />
+
+        <Button
+            android:id="@+id/open_source_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/open_source" />
+    </LinearLayout>
+
     <TextView
-        android:id="@+id/news_description_text_view"
+        android:id="@+id/news_content_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp" />

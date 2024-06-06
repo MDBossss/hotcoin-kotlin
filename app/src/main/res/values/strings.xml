@@ -6,4 +6,6 @@
     <string name="title_profile">Profile</string>
     <string name="title_news_details">Details</string>
     <string name="read_more"><![CDATA[Read More >]]></string>
+    <string name="bookmark">Bookmark</string>
+    <string name="open_source">Open source</string>
 </resources>
