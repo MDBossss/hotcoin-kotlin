@@ -11,6 +11,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.squareup.picasso.Picasso
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class NewsDetailsFragment : Fragment() {
 
@@ -25,10 +28,14 @@ class NewsDetailsFragment : Fragment() {
         binding = FragmentNewsDetailsBinding.inflate(inflater,container,false)
 
         val article: Article = args.article
+        val formattedDate = Instant
+            .parse(article.publishedAt)
+            .atZone(ZoneId.systemDefault())
+            .format(DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a"))
 
         binding.newsSourceTextView.text = article.source.name
         binding.newsTitleTextView.text = article.title
-        binding.newsAuthorPublishedAt.text = "Posted by ${article.author}, ${article.publishedAt}"
+        binding.newsAuthorPublishedAt.text = "Posted by ${article.author}, ${formattedDate}"
         Picasso.get().load(article.urlToImage).into(binding.newsImageView)
         binding.newsContentTextView.text = article.content
 
