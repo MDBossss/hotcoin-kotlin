@@ -9,12 +9,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import android.tvz.hr.hotcoin.databinding.FragmentBookmarkedBinding
+import android.tvz.hr.hotcoin.model.Article
 import android.tvz.hr.hotcoin.util.Constants
 import android.tvz.hr.hotcoin.util.RetrofitHelper
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 
-class BookmarkedFragment : Fragment() {
+class BookmarkedFragment : Fragment(), BookmarkedAdapter.OnItemClickListener {
 
     private var _binding: FragmentBookmarkedBinding? = null
     private lateinit var bookmarkedService: BookmarksService
@@ -42,7 +43,7 @@ class BookmarkedFragment : Fragment() {
         binding.bookmarkedNewsRecyclerView.layoutManager = LinearLayoutManager(context)
 
         // Initialize the adapter with empty list before calling the api
-        bookmarkedAdapter = BookmarkedAdapter(emptyList())
+        bookmarkedAdapter = BookmarkedAdapter(this,emptyList())
         binding.bookmarkedNewsRecyclerView.adapter = bookmarkedAdapter
 
 
@@ -52,7 +53,7 @@ class BookmarkedFragment : Fragment() {
         bookmarkedViewModel.bookmarksResponse.observe(viewLifecycleOwner){ bookmarksResonse ->
             if(bookmarksResonse != null){
                 val articles = bookmarksResonse
-                bookmarkedAdapter = BookmarkedAdapter(articles)
+                bookmarkedAdapter = BookmarkedAdapter(this,articles)
                 binding.bookmarkedNewsRecyclerView.adapter = bookmarkedAdapter
             }
         }
@@ -63,8 +64,45 @@ class BookmarkedFragment : Fragment() {
             }
         }
 
+
+
         return root
     }
+
+    override fun onDeleteButtonClick(article: Article) {
+        val bookmarkedViewModel =
+            ViewModelProvider(this,BookmarkedViewModelFactory(bookmarkedService)).get(BookmarkedViewModel::class.java)
+
+        // Delete the article
+        bookmarkedViewModel.deleteArticle(article)
+
+        // Wait for response
+        bookmarkedViewModel.deleteResponse.observe(viewLifecycleOwner) { deleteResponse ->
+            if (deleteResponse != null) {
+                Toast.makeText(context, deleteResponse, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+        // Fetching and observing the bookmarked articles from the viewmodel
+        bookmarkedViewModel.getBookmarkedArticles()
+
+        bookmarkedViewModel.bookmarksResponse.observe(viewLifecycleOwner){ bookmarksResonse ->
+            if(bookmarksResonse != null){
+                val articles = bookmarksResonse
+                bookmarkedAdapter = BookmarkedAdapter(this,articles)
+                binding.bookmarkedNewsRecyclerView.adapter = bookmarkedAdapter
+            }
+        }
+
+        bookmarkedViewModel.error.observe(viewLifecycleOwner) { error ->
+            if (error != null) {
+                Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

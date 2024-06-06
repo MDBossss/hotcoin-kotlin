@@ -8,6 +8,6 @@ router.use(express.json());
 
 router.get("/", articleController.getAllArticles);
 router.post("/", articleController.createArticle);
-router.delete("/", articleController.deleteArticle);
+router.delete("/:title", articleController.deleteArticle);
 
 export default router;
