@@ -9,7 +9,10 @@ interface ArticleWithSource extends Article {
 class ArticleController {
   async getAllArticles(req: Request, res: Response) {
     try {
-      const articles = await prisma.article.findMany();
+      console.log("[INFO] getAllArticles()");
+      const articles = await prisma.article.findMany({
+        include: { source: true },
+      });
       return res.status(200).json(articles);
     } catch (error) {
       console.error(error);
@@ -55,6 +58,7 @@ class ArticleController {
 
   async deleteArticle(req: Request, res: Response) {
     try {
+      console.log("[INFO] deleteArticle()");
       const { title } = req.params;
 
       await prisma.article.delete({ where: { title } });

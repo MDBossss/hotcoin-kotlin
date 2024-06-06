@@ -41,7 +41,20 @@
         android:id="@+id/navigation_bookmarked"
         android:name="android.tvz.hr.hotcoin.ui.bookmarked.BookmarkedFragment"
         android:label="@string/title_bookmarked"
-        tools:layout="@layout/fragment_bookmarked" />
+        tools:layout="@layout/fragment_bookmarked" >
+        <action
+            android:id="@+id/action_bookmarkedFragment_to_newsDetailsFragment"
+            app:destination="@+id/navigation_news_details"
+            app:popUpTo="@+id/navigation_news"
+            app:popUpToInclusive="true"
+            >
+            <argument
+                android:name="article"
+                app:argType="android.tvz.hr.hotcoin.model.Article"
+                app:nullable="false"
+                />
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_charts"

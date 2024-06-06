@@ -34,7 +34,6 @@ class NewsAdapter(private val context: Context, private val articles: List<Artic
                     val article = articles[position]
 
                     // Open NewsDetailsFragment
-
                     if(context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
                         val newsDetailsFragment = NewsDetailsFragment()
                         val bundle = Bundle()
