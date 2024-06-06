@@ -12,7 +12,10 @@
         tools:layout="@layout/fragment_news">
         <action
             android:id="@+id/action_newsFragment_to_newsDetailsFragment"
-            app:destination="@+id/navigation_news_details">
+            app:destination="@+id/navigation_news_details"
+            app:popUpTo="@+id/navigation_news"
+            app:popUpToInclusive="true"
+            >
             <argument
                 android:name="article"
                 app:argType="android.tvz.hr.hotcoin.model.Article"

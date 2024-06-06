@@ -9,21 +9,55 @@
         android:id="@+id/news_image_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginTop="32dp"
         android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/news_source_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:background="@color/purple_500"
+        android:textColor="#fff"
+         />
 
     <TextView
         android:id="@+id/news_title_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        />
 
     <TextView
         android:id="@+id/news_description_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/read_more"
+        android:text="@string/read_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:paddingLeft="16dp"
+        android:paddingBottom="16dp"
+        android:textStyle="bold"
+        android:textColor="#03A9F4" />
+
+    <TextView
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cacaca"
+        />
 
 </LinearLayout>

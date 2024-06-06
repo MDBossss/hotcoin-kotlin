@@ -21,6 +21,7 @@ class NewsAdapter(private val context: Context, private val articles: List<Artic
     inner class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val titleTextView: TextView = itemView.findViewById(R.id.news_title_text_view)
         val descriptionTextView: TextView = itemView.findViewById(R.id.news_description_text_view)
+        val sourceTextView: TextView = itemView.findViewById(R.id.news_source_text_view)
         val imageView: ImageView = itemView.findViewById(R.id.news_image_view)
 
 
@@ -48,6 +49,7 @@ class NewsAdapter(private val context: Context, private val articles: List<Artic
         val article = articles[position]
         holder.titleTextView.text = article.title
         holder.descriptionTextView.text = article.description
+        holder.sourceTextView.text = article.source.name
         Picasso.get()
             .load(article.urlToImage)
             .into(holder.imageView)
