@@ -9,7 +9,30 @@
         android:id="@+id/navigation_news"
         android:name="android.tvz.hr.hotcoin.ui.news.NewsFragment"
         android:label="@string/title_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news">
+        <action
+            android:id="@+id/action_newsFragment_to_newsDetailsFragment"
+            app:destination="@+id/navigation_news_details">
+            <argument
+                android:name="article"
+                app:argType="android.tvz.hr.hotcoin.model.Article"
+                app:nullable="false"
+                />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_news_details"
+        android:name="android.tvz.hr.hotcoin.ui.news_details.NewsDetailsFragment"
+        android:label="@string/title_news_details"
+        tools:layout="@layout/fragment_news_details"
+        >
+        <argument
+            android:name="article"
+            app:argType="android.tvz.hr.hotcoin.model.Article"
+            app:nullable="false"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_bookmarked"

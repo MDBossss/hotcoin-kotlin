@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 
 class ProfileViewModel(private val context: Context) : ViewModel() {
 
+    // This is how to initalize livedata
     private val _text = MutableLiveData<String>().apply {
         value = "This is profile Fragment"
     }

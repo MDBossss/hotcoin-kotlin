@@ -1,6 +1,8 @@
 package android.tvz.hr.hotcoin.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class NewsResponse(
     @SerializedName("status")
@@ -11,6 +13,7 @@ data class NewsResponse(
     val articles: List<Article>
 )
 
+@Parcelize
 data class Article(
     @SerializedName("source")
     val source: Source,
@@ -28,11 +31,13 @@ data class Article(
     val publishedAt: String,
     @SerializedName("content")
     val content: String
-)
+) : Parcelable
 
+
+@Parcelize
 data class Source(
     @SerializedName("id")
     val id: String?,
     @SerializedName("name")
     val name: String
-)
+) : Parcelable

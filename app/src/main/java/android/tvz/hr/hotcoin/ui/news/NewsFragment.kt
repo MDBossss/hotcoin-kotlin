@@ -33,25 +33,30 @@ class NewsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        // Initialize the service to pass to the factory to pass to the viewmodel
         newsService = RetrofitHelper().createService(NewsService::class.java,Constants.NEWS_API_URL)
         val newsViewModel =
             ViewModelProvider(this,NewsViewModelFactory(newsService)).get(NewsViewModel::class.java)
 
+        // Binding
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         binding.newsRecyclerView.layoutManager = LinearLayoutManager(context)
 
         // Initialize the adapter with empty list before calling the api
-        newsAdapter = NewsAdapter(emptyList())
+        newsAdapter = NewsAdapter(requireContext(),emptyList())
         binding.newsRecyclerView.adapter = newsAdapter
 
+
+        // Fetching and observing the news from the viewmodel
         newsViewModel.getNews()
 
         newsViewModel.newsResponse.observe(viewLifecycleOwner) { newsResponse ->
             if (newsResponse != null) {
                 val articles = newsResponse.articles
-                newsAdapter = NewsAdapter(articles)
+                newsAdapter = NewsAdapter(requireContext(),articles)
                 binding.newsRecyclerView.adapter = newsAdapter
             }
         }
