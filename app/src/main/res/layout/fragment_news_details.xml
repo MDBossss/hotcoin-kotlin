@@ -57,7 +57,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginRight="4dp"
-            android:text="@string/bookmark" />
+            android:drawableLeft="@drawable/ic_bookmark_black_24dp"
+            android:text="@string/bookmark"
+            />
 
         <Button
             android:id="@+id/open_source_button"

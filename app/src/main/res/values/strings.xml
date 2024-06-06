@@ -8,4 +8,5 @@
     <string name="read_more"><![CDATA[Read More >]]></string>
     <string name="bookmark">Bookmark</string>
     <string name="open_source">Open source</string>
+    <string name="unbookmark">Unbookmark</string>
 </resources>

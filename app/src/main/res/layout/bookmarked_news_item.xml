@@ -23,6 +23,15 @@
         android:textColor="#fff"
         />
 
+    <Button
+        android:id="@+id/unbookmark_button"
+        android:layout_marginLeft="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_delete_block_24"
+        android:text="@string/unbookmark"
+        />
+
     <TextView
         android:id="@+id/bookmarked_news_title_text_view"
         android:layout_width="match_parent"
@@ -44,14 +53,14 @@
 
     <TextView
         android:id="@+id/bookmarked_read_more"
-        android:text="@string/read_more"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
         android:paddingLeft="16dp"
         android:paddingBottom="16dp"
-        android:textStyle="bold"
-        android:textColor="#03A9F4" />
+        android:text="@string/read_more"
+        android:textColor="#03A9F4"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/bookmarked_separator"
