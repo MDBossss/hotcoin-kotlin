@@ -3,12 +3,17 @@ package android.tvz.hr.hotcoin.ui.news_details
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.tvz.hr.hotcoin.api.BookmarksService
 import android.tvz.hr.hotcoin.databinding.FragmentNewsDetailsBinding
 import android.tvz.hr.hotcoin.model.Article
+import android.tvz.hr.hotcoin.util.Constants
+import android.tvz.hr.hotcoin.util.RetrofitHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.squareup.picasso.Picasso
 import java.time.Instant
@@ -19,14 +24,19 @@ class NewsDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentNewsDetailsBinding
     private val args: NewsDetailsFragmentArgs by navArgs()
+    private lateinit var bookmarksService: BookmarksService
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentNewsDetailsBinding.inflate(inflater,container,false)
 
+        // Initialize the service to pass to the factory to pass to the viewmodel
+        bookmarksService = RetrofitHelper().createService(BookmarksService::class.java, Constants.DATABASE_URL)
+        val bookmarksViewModel = ViewModelProvider(this, NewsDetailsViewModelFactory(bookmarksService)).get(NewsDetailsViewModel::class.java)
+
+        binding = FragmentNewsDetailsBinding.inflate(inflater,container,false)
 
         var article: Article =  arguments?.getParcelable("article") ?: args.article ?: throw IllegalArgumentException("Article not found")
 
@@ -44,12 +54,22 @@ class NewsDetailsFragment : Fragment() {
 
         // Set button onclick listeners
         binding.bookmarkButton.setOnClickListener{
-            // TODO: ADD BOOKMARK API CALL
+            // Call the viewmodel to create the article bookmark
+            bookmarksViewModel.createBookmark(article)
+
         }
 
         binding.openSourceButton.setOnClickListener{
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
             startActivity(intent)
+        }
+
+
+        // Observe the create article and wait for response
+        bookmarksViewModel.responseMessage.observe(viewLifecycleOwner){responseMessage ->
+            if(responseMessage != null){
+                Toast.makeText(context,responseMessage,Toast.LENGTH_SHORT).show()
+            }
         }
 
 
