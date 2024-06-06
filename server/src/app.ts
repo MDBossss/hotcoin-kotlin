@@ -3,6 +3,7 @@ import http from "http";
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import loginRoutes from "./routes/loginRoutes";
+import articleRoutes from "./routes/articleRoutes";
 
 config();
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 //Routes
 app.use("/api/login", loginRoutes);
+app.use("/api/articles", articleRoutes);
 
 //Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
