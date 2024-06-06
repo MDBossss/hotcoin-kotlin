@@ -27,7 +27,9 @@ class NewsDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentNewsDetailsBinding.inflate(inflater,container,false)
 
-        val article: Article = args.article
+
+        var article: Article =  arguments?.getParcelable("article") ?: args.article ?: throw IllegalArgumentException("Article not found")
+
         val formattedDate = Instant
             .parse(article.publishedAt)
             .atZone(ZoneId.systemDefault())

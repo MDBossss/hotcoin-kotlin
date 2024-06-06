@@ -2,6 +2,8 @@ package android.tvz.hr.hotcoin.ui.news
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
+import android.os.Bundle
 import android.tvz.hr.hotcoin.R
 import android.tvz.hr.hotcoin.model.Article
 import android.tvz.hr.hotcoin.ui.news_details.NewsDetailsFragment
@@ -32,8 +34,21 @@ class NewsAdapter(private val context: Context, private val articles: List<Artic
                     val article = articles[position]
 
                     // Open NewsDetailsFragment
-                    val action = NewsFragmentDirections.actionNewsFragmentToNewsDetailsFragment(article)
-                    itemView.findNavController().navigate(action)
+
+                    if(context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
+                        val newsDetailsFragment = NewsDetailsFragment()
+                        val bundle = Bundle()
+                        bundle.putParcelable("article", article)
+                        newsDetailsFragment.arguments = bundle
+                        val fragmentManager = (context as AppCompatActivity).supportFragmentManager
+                        val transaction = fragmentManager.beginTransaction()
+                        transaction.replace(R.id.news_details_container, newsDetailsFragment)
+                        transaction.commit()
+                    }else{
+                        val action = NewsFragmentDirections.actionNewsFragmentToNewsDetailsFragment(article)
+                        itemView.findNavController().navigate(action)
+                    }
+
                 }
             }
         }
