@@ -9,3 +9,22 @@ datasource db {
     provider = "mysql"
     url      = env("DATABASE_URL")
 }
+
+model Article {
+    id          String @id @default(uuid())
+    sourceId    String
+    source      Source @relation(fields: [sourceId], references: [id])
+    author      String
+    title       String @unique
+    description String @db.Text
+    url         String
+    urlToImage  String
+    publishedAt String
+    content     String @db.Text
+}
+
+model Source {
+    id      String    @id @default(uuid())
+    name    String
+    Article Article[]
+}
