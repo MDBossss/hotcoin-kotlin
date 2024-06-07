@@ -5,7 +5,6 @@ import android.tvz.hr.hotcoin.api.BookmarksService
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import android.tvz.hr.hotcoin.databinding.FragmentBookmarkedBinding
@@ -50,10 +49,9 @@ class BookmarkedFragment : Fragment(), BookmarkedAdapter.OnItemClickListener {
         // Fetching and observing the bookmarked articles from the viewmodel
         bookmarkedViewModel.getBookmarkedArticles()
 
-        bookmarkedViewModel.bookmarksResponse.observe(viewLifecycleOwner){ bookmarksResonse ->
-            if(bookmarksResonse != null){
-                val articles = bookmarksResonse
-                bookmarkedAdapter = BookmarkedAdapter(this,articles)
+        bookmarkedViewModel.bookmarksResponse.observe(viewLifecycleOwner){ bookmarksResponse ->
+            if(bookmarksResponse != null){
+                bookmarkedAdapter = BookmarkedAdapter(this,bookmarksResponse)
                 binding.bookmarkedNewsRecyclerView.adapter = bookmarkedAdapter
             }
         }
@@ -87,10 +85,9 @@ class BookmarkedFragment : Fragment(), BookmarkedAdapter.OnItemClickListener {
         // Fetching and observing the bookmarked articles from the viewmodel
         bookmarkedViewModel.getBookmarkedArticles()
 
-        bookmarkedViewModel.bookmarksResponse.observe(viewLifecycleOwner){ bookmarksResonse ->
-            if(bookmarksResonse != null){
-                val articles = bookmarksResonse
-                bookmarkedAdapter = BookmarkedAdapter(this,articles)
+        bookmarkedViewModel.bookmarksResponse.observe(viewLifecycleOwner){ bookmarksResponse ->
+            if(bookmarksResponse != null){
+                bookmarkedAdapter = BookmarkedAdapter(this, bookmarksResponse)
                 binding.bookmarkedNewsRecyclerView.adapter = bookmarkedAdapter
             }
         }
