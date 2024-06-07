@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { prisma } from "../utils/prisma";
 
 class LoginController {
   async login(req: Request, res: Response) {
@@ -7,7 +8,9 @@ class LoginController {
     const { username, password } = req.body;
 
     if (username === "test" && password === "test") {
-      res.status(200).json({ message: "Login successful" });
+      const user = await prisma.user.findFirst({ where: { id: "1" } });
+
+      res.status(200).json(user);
     } else {
       return res.status(401).json({ message: "Invalid credentials" });
     }
