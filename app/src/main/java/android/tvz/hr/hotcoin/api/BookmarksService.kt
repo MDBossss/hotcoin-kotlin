@@ -13,6 +13,9 @@ interface BookmarksService {
     @GET("/api/articles")
     fun getAllBookmarkedArticles(): Call<List<Article>>
 
+    @GET("/api/articles/latest")
+    fun getLatestArticle(): Call<Article>
+
     @POST("/api/articles")
     fun createArticle(@Body article: Article): Call<Article>
 

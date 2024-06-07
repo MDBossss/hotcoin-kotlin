@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialKeyguardLayout="@layout/news_widget"
+    android:initialLayout="@layout/news_widget"
+    android:minWidth="200dp"
+    android:minHeight="50dp"
+    android:previewImage="@drawable/hotcoin_logo"
+    android:previewLayout="@layout/news_widget"
+    android:resizeMode="horizontal|vertical"
+    android:targetCellWidth="1"
+    android:targetCellHeight="1"
+    android:updatePeriodMillis="3600000"
+    android:widgetCategory="home_screen" />

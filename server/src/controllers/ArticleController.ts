@@ -20,6 +20,27 @@ class ArticleController {
     }
   }
 
+  async getLastPublishedArticle(req: Request, res: Response) {
+    try {
+      console.log("[INFO] getLastPublishedArticle()");
+      const articles = await prisma.article.findMany({
+        orderBy: {
+          publishedAt: "desc",
+        },
+        take: 1,
+      });
+
+      if (articles.length < 1) {
+        return res.status(404).json({ error: "No articles found" });
+      }
+
+      res.status(200).json(articles[0]);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  }
+
   async createArticle(req: Request, res: Response) {
     try {
       console.log("[INFO] createArticle()");
