@@ -10,4 +10,5 @@
     <string name="open_source">Open source</string>
     <string name="unbookmark">Unbookmark</string>
     <string name="welcome">Welcome,</string>
+    <string name="logout">Logout</string>
 </resources>
