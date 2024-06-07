@@ -11,13 +11,19 @@ import android.tvz.hr.hotcoin.databinding.FragmentProfileBinding
 import android.tvz.hr.hotcoin.local.UserDao
 import android.tvz.hr.hotcoin.local.UserDatabase
 import android.tvz.hr.hotcoin.local.UserDatabaseHelper
+import android.tvz.hr.hotcoin.model.User
 import androidx.appcompat.app.AppCompatActivity
+import coil.transform.CircleCropTransformation
+import coil.transform.RoundedCornersTransformation
+import com.squareup.picasso.Picasso
+import jp.wasabeef.picasso.transformations.CropCircleTransformation
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private lateinit var userDao: UserDao
     private lateinit var db: UserDatabase
+    private lateinit var user: User
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -39,12 +45,21 @@ class ProfileFragment : Fragment() {
         // Initialize the Room database for the user
         db = UserDatabaseHelper.getInstance(requireContext())
         userDao = db.userDao()
+        user = userDao.getUser()
 
+        // Bind the views
+        binding.profileUsername.text = user.username
+        Picasso.get()
+            .load(user.imageUrl)
+            .transform(CropCircleTransformation())
+            .into(binding.profileImage)
+
+        // Bind the logout button
         val logoutButton = binding.logoutButton
         logoutButton.setOnClickListener{
             // Log the user out and remove it from the Room database
             profileViewModel.logout()
-            userDao.deleteUser(userDao.getUser())
+            userDao.deleteUser(user)
         }
 
         return root

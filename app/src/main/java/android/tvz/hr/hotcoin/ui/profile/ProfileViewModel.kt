@@ -10,12 +10,6 @@ import androidx.lifecycle.ViewModel
 
 class ProfileViewModel(private val context: Context) : ViewModel() {
 
-    // This is how to initalize livedata
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is profile Fragment"
-    }
-    val text: LiveData<String> = _text
-
 
     fun logout(){
         val sharedPreferences = context.getSharedPreferences("loginStatus", AppCompatActivity.MODE_PRIVATE)
