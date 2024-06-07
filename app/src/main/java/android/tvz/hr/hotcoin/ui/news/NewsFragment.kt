@@ -67,9 +67,6 @@ class NewsFragment : Fragment() {
             }
         }
 
-
-
-
         return root
     }
 
