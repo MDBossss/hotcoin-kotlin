@@ -34,7 +34,7 @@ class NewsDetailsFragment : Fragment() {
 
         // Initialize the service to pass to the factory to pass to the viewmodel
         bookmarksService = RetrofitHelper().createService(BookmarksService::class.java, Constants.DATABASE_URL)
-        val bookmarksViewModel = ViewModelProvider(this, NewsDetailsViewModelFactory(bookmarksService)).get(NewsDetailsViewModel::class.java)
+        val bookmarksViewModel = ViewModelProvider(this, NewsDetailsViewModelFactory(requireContext(),bookmarksService)).get(NewsDetailsViewModel::class.java)
 
         binding = FragmentNewsDetailsBinding.inflate(inflater,container,false)
 

@@ -15,22 +15,26 @@ model Article {
     sourceId    String
     source      Source @relation(fields: [sourceId], references: [id])
     author      String
-    title       String @unique
+    title       String
     description String @db.Text
-    url         String
-    urlToImage  String
+    url         String @db.Text
+    urlToImage  String @db.Text
     publishedAt String
     content     String @db.Text
+    userId      String
+    user        User   @relation(fields: [userId], references: [id])
 }
 
 model Source {
-    id      String    @id @default(uuid())
-    name    String
-    Article Article[]
+    id       String    @id @default(uuid())
+    name     String
+    articles Article[]
 }
 
 model User {
-    id       String @id
+    id       String    @id @default(uuid())
     username String
-    imageUrl String
+    password String
+    imageUrl String    @db.Text
+    articles Article[]
 }
