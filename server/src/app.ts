@@ -2,7 +2,7 @@ import { config } from "dotenv";
 import http from "http";
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
-import loginRoutes from "./routes/loginRoutes";
+import authRoutes from "./routes/authRoutes";
 import articleRoutes from "./routes/articleRoutes";
 
 config();
@@ -14,7 +14,7 @@ const httpServer = http.createServer(app);
 app.use(cors());
 
 //Routes
-app.use("/api/login", loginRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/articles", articleRoutes);
 
 //Error handling middleware

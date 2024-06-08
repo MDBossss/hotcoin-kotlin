@@ -9,7 +9,7 @@ import androidx.room.Query
 
 @Dao
 interface UserDao {
-    @Query("SELECT * FROM user WHERE id = '1'")
+    @Query("SELECT * FROM user LIMIT 1")
     fun getUser(): User
 
     @Insert

@@ -10,15 +10,15 @@ import retrofit2.http.Path
 
 interface BookmarksService {
 
-    @GET("/api/articles")
-    fun getAllBookmarkedArticles(): Call<List<Article>>
+    @GET("/api/articles/{userId}")
+    fun getAllBookmarkedArticles(@Path("userId") userId: String): Call<List<Article>>
 
     @GET("/api/articles/latest")
     fun getLatestArticle(): Call<Article>
 
-    @POST("/api/articles")
-    fun createArticle(@Body article: Article): Call<Article>
+    @POST("/api/articles/{userId}")
+    fun createArticle(@Body article: Article, @Path("userId") userId: String): Call<Article>
 
-    @DELETE("/api/articles/{title}")
-    fun deleteArticle(@Path("title") title:String): Call<Void>
+    @DELETE("/api/articles/{userId}/{title}")
+    fun deleteArticle(@Path("title") title:String, @Path("userId") userId: String): Call<Void>
 }

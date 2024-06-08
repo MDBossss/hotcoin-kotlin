@@ -10,8 +10,11 @@ class ArticleController {
   async getAllArticles(req: Request, res: Response) {
     try {
       console.log("[INFO] getAllArticles()");
+
+      const { userId } = req.params;
       const articles = await prisma.article.findMany({
-        include: { source: true },
+        where: { userId },
+        include: { source: true, user: true },
       });
       return res.status(200).json(articles);
     } catch (error) {
@@ -23,6 +26,7 @@ class ArticleController {
   async getLastPublishedArticle(req: Request, res: Response) {
     try {
       console.log("[INFO] getLastPublishedArticle()");
+
       const articles = await prisma.article.findMany({
         orderBy: {
           publishedAt: "desc",
@@ -46,10 +50,12 @@ class ArticleController {
       console.log("[INFO] createArticle()");
 
       const article: ArticleWithSource = req.body;
+      const { userId } = req.params;
 
       const existingArticle = await prisma.article.findFirst({
         where: {
           title: article.title,
+          userId,
         },
       });
 
@@ -67,6 +73,7 @@ class ArticleController {
           urlToImage: article.urlToImage,
           publishedAt: article.publishedAt,
           content: article.content,
+          user: { connect: { id: userId } },
         },
       });
 
@@ -80,9 +87,20 @@ class ArticleController {
   async deleteArticle(req: Request, res: Response) {
     try {
       console.log("[INFO] deleteArticle()");
-      const { title } = req.params;
+      const { title, userId } = req.params;
 
-      await prisma.article.delete({ where: { title } });
+      const existingArticle = await prisma.article.findFirst({
+        where: {
+          title,
+          userId,
+        },
+      });
+
+      if (!existingArticle) {
+        return res.status(404).json({ message: "Article not found" });
+      }
+
+      await prisma.article.delete({ where: { id: existingArticle.id } });
       res.status(204).json({ message: "Article deleted successfully" });
     } catch (error) {
       console.error(error);

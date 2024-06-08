@@ -32,7 +32,7 @@ class BookmarkedFragment : Fragment(), BookmarkedAdapter.OnItemClickListener {
         // Initialize the service to pass ot hte factory to pass the the viewmodel
         bookmarkedService = RetrofitHelper().createService(BookmarksService::class.java,Constants.DATABASE_URL)
         val bookmarkedViewModel =
-            ViewModelProvider(this,BookmarkedViewModelFactory(bookmarkedService)).get(BookmarkedViewModel::class.java)
+            ViewModelProvider(this,BookmarkedViewModelFactory(requireContext(),bookmarkedService)).get(BookmarkedViewModel::class.java)
 
         // Binding
         _binding = FragmentBookmarkedBinding.inflate(inflater, container, false)
@@ -69,7 +69,7 @@ class BookmarkedFragment : Fragment(), BookmarkedAdapter.OnItemClickListener {
 
     override fun onDeleteButtonClick(article: Article) {
         val bookmarkedViewModel =
-            ViewModelProvider(this,BookmarkedViewModelFactory(bookmarkedService)).get(BookmarkedViewModel::class.java)
+            ViewModelProvider(this,BookmarkedViewModelFactory(requireContext(),bookmarkedService)).get(BookmarkedViewModel::class.java)
 
         // Delete the article
         bookmarkedViewModel.deleteArticle(article)
