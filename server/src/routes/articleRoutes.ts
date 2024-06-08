@@ -6,8 +6,8 @@ const articleController = new ArticleController();
 
 router.use(express.json());
 
-router.get("/:userId", articleController.getAllArticles);
 router.get("/latest", articleController.getLastPublishedArticle);
+router.get("/:userId", articleController.getAllArticles);
 router.post("/:userId", articleController.createArticle);
 router.delete("/:userId/:title", articleController.deleteArticle);
 
